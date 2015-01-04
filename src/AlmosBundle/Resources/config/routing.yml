@@ -1,3 +1,5 @@
-almos_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: AlmosBundle:Default:index }
+AlmosBundle_homepage:
+    pattern:  /
+    defaults: { _controller: AlmosBundle:Page:index }
+    requirements:
+        _method:  GET
