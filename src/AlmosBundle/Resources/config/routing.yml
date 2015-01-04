@@ -1,0 +1,3 @@
+almos_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AlmosBundle:Default:index }
