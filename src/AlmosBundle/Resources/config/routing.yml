@@ -15,4 +15,4 @@ AlmosBundle_contact:
     pattern:  /contact
     defaults: { _controller: AlmosBundle:Page:contact }
     requirements:
-        _method:  GET
+           _method:  GET|POST

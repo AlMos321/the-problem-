@@ -1,7 +1,6 @@
-<?
+<?php
 
 namespace AlmosBundle\Entity;
-
 
 
 class Enquiry
@@ -54,3 +53,5 @@ class Enquiry
         $this->body = $body;
     }
 }
+
+?>
