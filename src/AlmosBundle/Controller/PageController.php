@@ -11,4 +11,9 @@ class PageController extends Controller
     {
         return $this->render('AlmosBundle:Page:index.html.twig');
     }
+
+    public function aboutAction()
+    {
+        return $this->render('AlmosBundle:Page:about.html.twig');
+    }
 }
