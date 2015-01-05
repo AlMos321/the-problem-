@@ -3,3 +3,9 @@ AlmosBundle_homepage:
     defaults: { _controller: AlmosBundle:Page:index }
     requirements:
         _method:  GET
+
+AlmosBundle_about:
+    pattern:  /about
+    defaults: { _controller:  AlmosBundle:Page:about }
+    requirements:
+        _method:  GET
