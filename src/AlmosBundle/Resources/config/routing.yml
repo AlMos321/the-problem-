@@ -9,3 +9,10 @@ AlmosBundle_about:
     defaults: { _controller:  AlmosBundle:Page:about }
     requirements:
         _method:  GET
+
+
+AlmosBundle_contact:
+    pattern:  /contact
+    defaults: { _controller: AlmosBundle:Page:contact }
+    requirements:
+        _method:  GET
