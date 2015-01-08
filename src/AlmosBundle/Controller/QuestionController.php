@@ -24,8 +24,12 @@ class QuestionController extends Controller
             throw $this->createNotFoundException('Unable to fount question.');
         }
 
+        $comments = $em->getRepository('AlmosBundle:Comment')
+            ->getCommentsForBlog($quest);
+
         return $this->render('AlmosBundle:Question:show.html.twig', array(
             'quest'      => $quest,
+            'comments'  => $comments
         ));
     }
 }

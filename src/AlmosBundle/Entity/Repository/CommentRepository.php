@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+    public function getCommentsForBlog($blogId, $approved = true)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.question = :question_id')
+            ->addOrderBy('c.created')
+            ->setParameter('question_id', $blogId);
+
+        if (false === is_null($approved))
+            $qb->andWhere('c.approved = :approved')
+                ->setParameter('approved', $approved);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }
