@@ -5,12 +5,28 @@ namespace AlmosBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AlmosBundle\Entity\Repository\QuestionRepository")
  * @ORM\Table(name="question")
+ * @ORM\HasLifecycleCallbacks
  */
 
 class Question
 {
+
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -124,9 +140,14 @@ class Question
      *
      * @return string 
      */
-    public function getMessage()
+    public function getMessage($length = null)
     {
-        return $this->message;
+        if (false === is_null($length) && $length > 0)
+            return substr($this->message, 0, $length);
+        else
+            return $this->message;
+
+      //  return $this->message;
     }
 
     /**

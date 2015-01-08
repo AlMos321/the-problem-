@@ -14,7 +14,15 @@ class PageController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AlmosBundle:Page:index.html.twig');
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $questions = $em->getRepository('AlmosBundle:Question')
+            ->getLatestQuestion();
+
+        return $this->render('AlmosBundle:Page:index.html.twig', array(
+            'questions' => $questions
+        ));
     }
 
     public function aboutAction()

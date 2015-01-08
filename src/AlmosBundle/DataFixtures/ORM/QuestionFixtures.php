@@ -28,7 +28,7 @@ class BlogFixtures implements FixtureInterface
       //  $blog2->setImage('pool_leak.jpg');
         $blog2->setAuthor('Zero Cool');
         $blog2->setTags('pool, leaky, hacked, movie, hacking, symblog');
-        $blog2->setCreated(new \DateTime("2011-07-23 06:12:33"));
+        $blog2->setCreated(new \DateTime());
         $blog2->setUpdated($blog2->getCreated());
         $manager->persist($blog2);
 
