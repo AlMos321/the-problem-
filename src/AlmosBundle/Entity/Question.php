@@ -3,6 +3,8 @@
 namespace AlmosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @ORM\Entity(repositoryClass="AlmosBundle\Entity\Repository\QuestionRepository")
@@ -13,19 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Question
 {
 
-    public function __construct()
-    {
-        $this->setCreated(new \DateTime());
-        $this->setUpdated(new \DateTime());
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->setUpdated(new \DateTime());
-    }
 
     /**
      * @ORM\Id
@@ -54,6 +43,9 @@ class Question
      */
     protected $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="question")
+     */
     protected $comments;
 
     /**
@@ -217,5 +209,55 @@ class Question
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+    
+
+    /**
+     * Add comments
+     *
+     * @param \AlmosBundle\Entity\Comment $comments
+     * @return Question
+     */
+    public function addComment(\AlmosBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AlmosBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AlmosBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
