@@ -18,17 +18,17 @@ class QuestionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $quest = $em->getRepository('AlmosBundle:Question')->find($id);
+        $blog = $em->getRepository('AlmosBundle:Question')->find($id);
 
-        if (!$quest) {
-            throw $this->createNotFoundException('Unable to fount question.');
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog post.');
         }
 
         $comments = $em->getRepository('AlmosBundle:Comment')
-            ->getCommentsForBlog($quest);
+            ->getCommentsForBlog($blog->getId());
 
         return $this->render('AlmosBundle:Question:show.html.twig', array(
-            'quest'      => $quest,
+            'blog'      => $blog,
             'comments'  => $comments
         ));
     }

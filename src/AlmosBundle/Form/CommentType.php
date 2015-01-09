@@ -2,6 +2,8 @@
 
 namespace AlmosBundle\Form;
 
+use AlmosBundle\Entity\Comment;
+use AlmosBundle\Entity\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,7 +18,11 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('user')
-            ->add('comment')
+            ->add('comment', 'entity', array(
+        'multiple' => true,
+        'class'    => 'AlmosBundle:Question',
+        'property' => 'first',))
+
             ->add('approved')
             ->add('created')
             ->add('updated')
@@ -33,7 +39,7 @@ class CommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AlmosBundle\Entity\Question'
+            'data_class' => 'AlmosBundle\Entity\Comment'
         ));
     }
 

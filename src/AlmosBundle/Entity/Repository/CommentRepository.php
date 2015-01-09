@@ -16,9 +16,9 @@ class CommentRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
-            ->where('c.question = :question_id')
+            ->where('c.blog = :blog_id')
             ->addOrderBy('c.created')
-            ->setParameter('question_id', $blogId);
+            ->setParameter('blog_id', $blogId);
 
         if (false === is_null($approved))
             $qb->andWhere('c.approved = :approved')

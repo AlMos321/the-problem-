@@ -1,10 +1,6 @@
 <?php
 
-
 namespace AlmosBundle\Entity;
-
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -39,9 +36,9 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="comments")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
      */
-    protected $question;
+    protected $blog;
 
     /**
      * @ORM\Column(type="datetime")
@@ -53,20 +50,13 @@ class Comment
      */
     protected $updated;
 
+
     public function __construct()
     {
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
 
         $this->setApproved(true);
-    }
-
-    /**
-     * @ORM\preUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->setUpdated(new \DateTime());
     }
 
     /**
@@ -161,6 +151,8 @@ class Comment
         return $this;
     }
 
+
+
     /**
      * Get created
      *
@@ -195,35 +187,25 @@ class Comment
     }
 
     /**
-     * Set question
+     * Set blog
      *
-     * @param \AlmosBundle\Entity\Question $question
+     * @param \AlmosBundle\Entity\Blog $blog
      * @return Comment
      */
-    public function setQuestion(\AlmosBundle\Entity\Question $question = null)
+    public function setBlog(\AlmosBundle\Entity\Blog $blog = null)
     {
-        $this->question = $question;
+        $this->blog = $blog;
 
         return $this;
     }
 
     /**
-     * Get question
+     * Get blog
      *
-     * @return \AlmosBundle\Entity\Question 
+     * @return \AlmosBundle\Entity\Blog 
      */
-    public function getQuestion()
+    public function getBlog()
     {
-        return $this->question;
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('user', new NotBlank(array(
-            'message' => 'You must enter your name'
-        )));
-        $metadata->addPropertyConstraint('comment', new NotBlank(array(
-            'message' => 'You must enter a comment'
-        )));
+        return $this->blog;
     }
 }

@@ -22,50 +22,55 @@ class Question
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
     /**
      * @ORM\Column(type="string")
      */
     protected $title;
-
     /**
      * @ORM\Column(type="string", length=100)
      */
     protected $author;
-
     /**
      * @ORM\Column(type="text")
      */
     protected $message;
-    
+
     /**
      * @ORM\Column(type="text")
      */
     protected $tags;
-
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
      */
     protected $comments;
-
     /**
      * @ORM\Column(type="datetime")
      */
     protected $created;
-
     /**
      * @ORM\Column(type="datetime")
      */
     protected $updated;
 
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
     }
 
     /**
@@ -132,14 +137,9 @@ class Question
      *
      * @return string 
      */
-    public function getMessage($length = null)
+    public function getMessage()
     {
-        if (false === is_null($length) && $length > 0)
-            return substr($this->message, 0, $length);
-        else
-            return $this->message;
-
-      //  return $this->message;
+        return $this->message;
     }
 
     /**
@@ -211,23 +211,6 @@ class Question
         return $this->updated;
     }
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-
-        $this->setCreated(new \DateTime());
-        $this->setUpdated(new \DateTime());
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->setUpdated(new \DateTime());
-    }
-    
-
     /**
      * Add comments
      *
@@ -265,5 +248,4 @@ class Question
     {
         return $this->getTitle();
     }
-
 }

@@ -11,7 +11,7 @@ use AlmosBundle\Form\CommentType;
  */
 class CommentController extends Controller
 {
-    public function newAction($question_id)
+    public function newAction($question_id )
     {
         $blog = $this->getBlog($question_id);
 
@@ -50,7 +50,7 @@ class CommentController extends Controller
         ));
     }
 
-    protected function getBlog($question_id )
+    protected function getBlog($question_id  )
     {
         $em = $this->getDoctrine()
             ->getManager();
