@@ -260,4 +260,10 @@ class Question
     {
         return $this->comments;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
 }
